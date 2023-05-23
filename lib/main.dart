@@ -49,6 +49,51 @@ class Film {
   int get hashCode => Object.hashAll([id, isFavorite]);
 }
 
+// List of films hardcoded
+const allFilms = [
+  Film(
+    id: '1',
+    title: 'The Shawshank Redemption',
+    description: 'Description for The Shawshank Redemption',
+    isFavorite: false,
+  ),
+  Film(
+    id: '2',
+    title: 'The Godfather',
+    description: 'Description for The Godfather',
+    isFavorite: false,
+  ),
+  Film(
+    id: '3',
+    title: 'The Godfather Part II',
+    description: 'Description for The Godfather Part II',
+    isFavorite: false,
+  ),
+  Film(
+    id: '4',
+    title: 'The Dark Knight',
+    description: 'Description for The Dark Knight',
+    isFavorite: false,
+  ),
+];
+
+// Films notifier that has a list of films and allows to update any given film with a favorite flag
+class FilmsNotifier extends StateNotifier<List<Film>> {
+  /// By default is is populated with a list of all films
+  FilmsNotifier() : super(allFilms);
+
+  /// Update film state
+  void update(Film film, bool isFavorite) {
+    /// Loop through all films, if id matches we can update it
+    /// map => toList() is rly nice
+    state = state
+        .map((thisFilm) => thisFilm.id == film.id
+            ? thisFilm.copy(isFavorite: isFavorite)
+            : thisFilm)
+        .toList();
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
