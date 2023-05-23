@@ -32,6 +32,21 @@ class Film {
         description: description,
         isFavorite: isFavorite,
       );
+
+  // toString
+  @override
+  String toString() => 'Film(id: $id, '
+      'title: $title, '
+      'description: $description, '
+      'isFavorite: $isFavorite)';
+
+  // equality
+  @override
+  bool operator ==(covariant Film other) =>
+      id == other.id && isFavorite == other.isFavorite;
+
+  @override
+  int get hashCode => Object.hashAll([id, isFavorite]);
 }
 
 class MyApp extends StatelessWidget {
