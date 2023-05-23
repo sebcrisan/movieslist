@@ -8,17 +8,43 @@ void main() {
   ));
 }
 
+// Film class
+@immutable
+class Film {
+  final String id;
+  final String title;
+  final String description;
+  final bool isFavorite;
+
+  const Film({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.isFavorite,
+  });
+
+  Film copy({
+    required bool isFavorite,
+  }) =>
+      Film(
+        id: id,
+        title: title,
+        description: description,
+        isFavorite: isFavorite,
+      );
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Persons App',
+      title: 'Movies App',
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.dark,
       debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Persons App'),
+      home: const MyHomePage(title: 'Movies App'),
     );
   }
 }
@@ -35,7 +61,7 @@ class MyHomePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Persons'),
+        title: const Text('Movies'),
       ),
     );
   }
