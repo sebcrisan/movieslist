@@ -123,11 +123,11 @@ final notFavoriteFilmsProvider = Provider<Iterable<Film>>(
 );
 
 // Films list widget
-class FilmsWidget extends ConsumerWidget {
+class FilmsList extends ConsumerWidget {
   // AlwaysAliveProvider is a mixin, shared by Provider and StateNotifierProvider
   final AlwaysAliveProviderBase<Iterable<Film>> provider;
 
-  const FilmsWidget({required this.provider, Key? key}) : super(key: key);
+  const FilmsList({required this.provider, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -212,6 +212,22 @@ class MyHomePage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Movies'),
+      ),
+      body: Column(
+        children: [
+          const FilterWidget(),
+          Consumer(builder: (context, ref, child) {
+            final filter = ref.watch(favoriteStatusProvider);
+            switch (filter) {
+              case FavoriteStatus.all:
+                return FilmsList(provider: allFilmsProvider);
+              case FavoriteStatus.favorite:
+                return FilmsList(provider: favoriteFilmsProvider);
+              case FavoriteStatus.notFavorite:
+                return FilmsList(provider: notFavoriteFilmsProvider);
+            }
+          })
+        ],
       ),
     );
   }
